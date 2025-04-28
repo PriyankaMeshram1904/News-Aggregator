@@ -1,0 +1,35 @@
+package com.example.news_blend.controller;
+
+import com.example.news_blend.model.User;
+import com.example.news_blend.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class AuthController {
+
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+        User user = authService.login(username, password);
+        if (user != null) {
+            return "redirect:/index.html";
+        }
+        return "redirect:/login.html?error=true";
+    }
+
+    @PostMapping("/signup")
+    public String signup(@ModelAttribute User user) {
+        authService.register(user);
+        return "redirect:/login.html";
+    }
+
+    @PostMapping("/forgot-password")
+    public String forgotPassword(@RequestParam String email) {
+        // Implement forgot password logic (e.g., sending reset link)
+        return "redirect:/login.html?reset=true";
+    }
+}
