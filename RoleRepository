@@ -1,0 +1,7 @@
+package com.example.news_blend.repository;
+
+import com.example.news_blend.model.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
+}
